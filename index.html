@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+	 <head>
+		  <meta charset="utf-8">
+		  <title>Тестовое меню</title>
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  <link href="sryle.css" rel="stylesheet" type="text/css" />
+		  <script src="script"></script>
+		  <script src="tree.min.js"></script>
+			<link rel="stylesheet" href="treejs.min.css" id="treejs_styles">
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+     </head>
+	 <body>
+	 <div class="menu-panel" id="menu-panel">
+		<form action="" method="post" class="search">
+		  <input type="search" name="" placeholder="поиск" class="input" />
+		  <input type="submit" name="" value="" class="submit" />
+		</form>
+		<div id="container"></div>
+	 </div>
+	 <ul class="ul-menu">
+		  <li class="li-menu"><a></a>
+		   <div id = "button-burger" class ="button-wrapper">
+				<button class="button-burger">
+					  <div class = "burger-div"></div>
+					  <div class = "burger-div"></div>
+					  <div class = "burger-div"></div>
+				</button>
+			</div>
+		</li>
+		<li class="li-menu"><a href="#contact" onclick="alert('Контакты')">Контакты</a></li>
+		  <li  class="li-menu dropdown"><a href="javascript:void(0)" class="dropbtn">Новости</a>
+				<div class="dropdown-content">
+				  <a href="#">Link 1</a>
+				  <a href="#">Link 2</a>
+				  <a href="#">Link 3</a>
+				</div>
+			</li>
+		  
+		  <li class="li-menu"><a href="#about" onclick="alert('О нас')">О нас</a></li>
+		</ul>
+	 </body>
+</html>
