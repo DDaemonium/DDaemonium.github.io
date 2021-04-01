@@ -6,15 +6,18 @@ import { Icon16Search, Icon28ShoppingCartOutline, Icon28ClipOutline, Icon28Newsf
 import ReactDOM from 'react-dom';
 import { GetCurrentPage } from './store/API';
 import Partners from './components/Partners';
+import Categories from './components/Categories';
 import Products from './components/Products';
+import ProductPreview from './components/ProductPreview';
 
 const Example = withAdaptivity(({ viewWidth }) => {
     const platform = usePlatform();
     const currentPage = GetCurrentPage();
     const [activeStory, setActiveStory] = React.useState(currentPage);
     const onStoryChange = (e: any) => setActiveStory(e.currentTarget.dataset.story);
-    const onPageChange = (e: any) => setActiveStory(e);
-    const isDesktop = viewWidth >= ViewWidth.TABLET;
+    const openProductView = () => setActiveStory('productView');
+    const openSearch = () => setActiveStory('products');
+    const isDesktop = viewWidth >= ViewWidth.SMALL_TABLET;
     const hasHeader = platform !== VKCOM;    
 
     return (
@@ -40,12 +43,12 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                 Партнёры
                             </Cell>
                             <Cell
-                                disabled={activeStory === 'services'}
-                                style={activeStory === 'services' ? {
+                                disabled={activeStory === 'categories'}
+                                style={activeStory === 'categories' ? {
                                     backgroundColor: "var(--button_secondary_background)",
                                     borderRadius: 8
                                 } : {}}
-                                data-story="services"
+                                data-story="categories"
                                 onClick={onStoryChange}
                                 before={<Icon28ServicesOutline />}
                             >
@@ -108,9 +111,9 @@ const Example = withAdaptivity(({ viewWidth }) => {
                         ><Icon28NewsfeedOutline /></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
-                            selected={activeStory === 'services'}
-                            data-story="services"
-                            text="Сервисы"
+                            selected={activeStory === 'categories'}
+                            data-story="categories"
+                            text="Категории"
                         ><Icon28ServicesOutline /></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
@@ -141,19 +144,16 @@ const Example = withAdaptivity(({ viewWidth }) => {
                             </Group>
                         </Panel>
                     </View>
-                    <View id="services" activePanel="services">
-                        <Panel id="services">
-                            <PanelHeader left={<PanelHeaderBack />}>Сервисы</PanelHeader>
-                            <Group style={{ height: '720' }}>
-                                <Placeholder icon={<Icon28ServicesOutline width={56} height={56} />}>
-                                </Placeholder>
-                            </Group>
+                    <View id="categories" activePanel="categories">
+                        <Panel id="categories">
+                            <PanelHeader>Категории</PanelHeader>
+                            <Categories isDesktop={isDesktop} />
                         </Panel>
                     </View>
                     <View id="products" activePanel="products">
                         <Panel id="products">
                             <PanelHeader>Товары</PanelHeader>
-                            <Products isDesktop={isDesktop} />
+                            <Products isDesktop={isDesktop} openProductView={openProductView} />
                         </Panel>
                     </View>
                     <View id="clips" activePanel="clips">
@@ -167,123 +167,17 @@ const Example = withAdaptivity(({ viewWidth }) => {
                     </View>
                     <View id="profile" activePanel="profile">
                         <Panel id="profile">
-                            <PanelHeader left={<PanelHeaderBack />}>Профиль</PanelHeader>
-                            <Group>
-                                <CardGrid size={isDesktop ? 'm' : 'l'}>
-                                    <Card mode="shadow">
-                                        <Div>
-                                            <h1>BF Goodrich G Grip 195/60 R15 88H Без шипов</h1>
-                                        </Div>
-                                        <div style={{ padding: 1 }}>
-                                            <img loading="lazy" style={{ maxWidth: isDesktop ? '90%' : '100%', width: isDesktop ? '90%' : '100%', objectFit: 'scale-down', position: 'relative' }} src="https://img1.foroffice.ru/upload/iblock/1db/fargo_ribbons_gold.jpg" alt="Картридж с лентой и чистящим валиком золотой металлик Fargo 45130" />
-                                        </div>
-                                        
-                                        <Div>
-                                            <Button before={<Icon28ShoppingCartOutline />} size="l" stretched mode="commerce">Купить на kolesa-darom.ru</Button>
-                                        </Div>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <Header mode="secondary">Информация о товаре</Header>
-                                        <SimpleCell multiline>
-                                            <InfoRow header="Цена">
-                                                4080₽
-                                            </InfoRow>
-                                        </SimpleCell>
-                                        <SimpleCell multiline>
-                                            <InfoRow header="Модель">
-                                                G Grip 195/60 R15 88H Без шипов
-                                            </InfoRow>
-                                        </SimpleCell>
-                                        <SimpleCell>
-                                            <InfoRow header="Производитель">
-                                                BF Goodrich
-                                            </InfoRow>
-                                        </SimpleCell>
-                                        <SimpleCell>
-                                            <InfoRow header="Артикул">
-                                                702746200
-                                            </InfoRow>
-                                        </SimpleCell>
-                                        <SimpleCell>
-                                            <InfoRow header="Категория">
-                                                Шины
-                                            </InfoRow>
-                                        </SimpleCell>
-                                        <SimpleCell>
-                                            <InfoRow header="Продавец">
-                                                kolesa-darom.ru
-                                            </InfoRow>
-                                        </SimpleCell>
-                                    </Card>
-                                </CardGrid>
-                                <CardGrid size='l'>
-                                    <Card mode="shadow">
-                                        <Header mode="secondary">Описание</Header>
-                                        <Div>
-                                            <Text weight="regular">
-                                                BF G-Grip пришла на смену хорошо зарекомендовавшей себя легковой шине Profiler2. Кроме функционала ей добавили тематический дизайн, который можно увидеть, рассматривая необычные каналы и боковую часть протектора, покрытого стилизованными всполохами огня. После хорошего первого впечатления резина с каждым километром добавляет к водительским ощущениям новые приятные моменты. В G-Grip получен превосходный баланс качеств, обеспечивающих надежное и легкое движение при любой погоде. И если с сухими покрытиями хорошо справляются многие покрышки, то на влажных и мокрых поверхностях у некоторых протекторов появляются чувствительные отклонения. Но только не у Goodrich! Для наиболее четкого представления G-Grip перечислим основные характеристики отдельными строками.      - Рисунок протектора - направленный "волнорез"      - Влажные места на дороге "съедают" специальные канавки      - На поверхностях с толстой пленкой воды включаются продольные каналы - Чуткую реакцию на поворотах обеспечивают блоки солидной ширины в плечевой зоне      - За стабильное прохождение по прямой отвечает центральное неразрывное ребро      - При торможении устойчивость сохраняется за счет работы усиливающих жесткость покрышки миниатюрных канавок, расположенных под углом      - Для дополнительной жесткости покрышки в "Гудрих" создали ламели с самоблокировкой. Начиная осматривать шину, мы останавливались на ее внешнем виде. И, заканчивая, тоже вспомним про дизайн, но уже с утилитарной точки зрения. Оригинальные каналы в непогоду становятся "воронками", усиливающими водоотведение из пятна сцепления резины с мокрым покрытием.
-                                            </Text>
-                                        </Div>
-                                    </Card>
-                                </CardGrid>
-                                <Header mode="primary">Похожие товары магазина kolesa-darom.ru</Header>
-                                <CardGrid size={isDesktop ? 's' : 'l'}>
-                                    <Card mode="shadow">
-                                        <div style={{ padding: 1 }}>
-                                            <img loading="lazy" style={{ maxWidth: isDesktop ? 210 : '100%', width: isDesktop ? 210 : '100%', maxHeight: isDesktop ? 210 : '100%', height: isDesktop ? 210 : '100%', objectFit: 'scale-down', position: 'relative' }} src="https://img1.foroffice.ru/upload/iblock/1db/fargo_ribbons_gold.jpg" alt="Картридж с лентой и чистящим валиком золотой металлик Fargo 45130" />
-                                        </div>
-                                        <Div>
-                                            <Headline weight="regular" style={{ marginBottom: 16 }}>BF Goodrich G Grip 195/60 R15 88H Без шипов</Headline>
-                                            <Text weight="medium" style={{ marginBottom: 16 }}>4080₽</Text>
-                                            <Text weight="regular">Модель: G Grip 195/60 R15 88H Без шипов</Text>
-                                            <Text weight="regular">Производитель: BF Goodrich</Text>
-                                        </Div>
-                                        <Div style={{ display: 'flex' }}>
-                                            <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon28ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
-                                        </Div>
-                                        <Div>
-                                            <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
-                                        </Div>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <div style={{ padding: 1 }}>
-                                            <img loading="lazy" style={{ maxWidth: isDesktop ? 210 : '100%', width: isDesktop ? 210 : '100%', maxHeight: isDesktop ? 210 : '100%', height: isDesktop ? 210 : '100%', objectFit: 'scale-down', position: 'relative' }} src="https://img1.foroffice.ru/upload/iblock/1db/fargo_ribbons_gold.jpg" alt="Картридж с лентой и чистящим валиком золотой металлик Fargo 45130" />
-                                        </div>
-                                        <Div>
-                                            <Headline weight="regular" style={{ marginBottom: 16 }}>BF Goodrich G Grip 195/60 R15 88H Без шипов</Headline>
-                                            <Text weight="medium" style={{ marginBottom: 16 }}>4080₽</Text>
-                                            <Text weight="regular">Модель: G Grip 195/60 R15 88H Без шипов</Text>
-                                            <Text weight="regular">Производитель: BF Goodrich</Text>
-                                        </Div>
-                                        <Div style={{ display: 'flex' }}>
-                                            <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon28ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
-                                        </Div>
-                                        <Div>
-                                            <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
-                                        </Div>
-                                    </Card>
-                                    <Card mode="shadow">
-                                        <div style={{ padding: 1 }}>
-                                            <img loading="lazy" style={{ maxWidth: isDesktop ? 210 : '100%', width: isDesktop ? 210 : '100%', maxHeight: isDesktop ? 210 : '100%', height: isDesktop ? 210 : '100%', objectFit: 'scale-down', position: 'relative' }} src="https://img1.foroffice.ru/upload/iblock/1db/fargo_ribbons_gold.jpg" alt="Картридж с лентой и чистящим валиком золотой металлик Fargo 45130" />
-                                        </div>
-                                        <Div>
-                                            <Headline weight="regular" style={{ marginBottom: 16 }}>BF Goodrich G Grip 195/60 R15 88H Без шипов</Headline>
-                                            <Text weight="medium" style={{ marginBottom: 16 }}>4080₽</Text>
-                                            <Text weight="regular">Модель: G Grip 195/60 R15 88H Без шипов</Text>
-                                            <Text weight="regular">Производитель: BF Goodrich</Text>
-                                        </Div>
-                                        <Div style={{ display: 'flex' }}>
-                                            <Button size="m" stretched style={{ marginRight: 8 }}>Подробнее</Button>
-                                            <Button before={<Icon28ShoppingCartOutline />} size="m" stretched mode="commerce">Купить</Button>
-                                        </Div>
-                                        <Div>
-                                            <Button before={<Icon16Search />} size="m" stretched mode="secondary">Похожее</Button>
-                                        </Div>
-                                    </Card>
-                                </CardGrid>
+                            <PanelHeader left={<PanelHeaderBack />}>Клипы</PanelHeader>
+                            <Group style={{ height: '1000px' }}>
+                                <Placeholder icon={<Icon28ClipOutline width={56} height={56} />}>
+                                </Placeholder>
                             </Group>
+                        </Panel>
+                    </View>
+                    <View id="productView" activePanel="productView">
+                        <Panel id="productView">
+                            <PanelHeader>Купить товар</PanelHeader>
+                            <ProductPreview openSearch={openSearch} isDesktop={isDesktop} />
                         </Panel>
                     </View>
                 </Epic>

@@ -27,11 +27,29 @@ export function GetCurrentPage(){
     if (pathname.indexOf('products') == 1) {
         return 'products';
     }
+    if (pathname.indexOf('categories') == 1) {
+        return 'categories';
+    }
+    if (pathname.indexOf('preview') == 1) {
+        return 'productView';
+    }
     return 'products';
 }
 
 export async function GetPartners() {
     return await safeAPICall('main/GetPartners');
+}
+
+export async function GetCategories(parentId) {
+    return await safeAPICall('main/GetCategories?parentId=' + (parentId ? parentId : 'null'));
+}
+
+export async function GetParentCategory(parentId) {
+    return await safeAPICall('main/GetCategoriesByIds?ids=' + (parentId ? parentId : 'null'));
+}
+
+export async function GetProduct(id, name) {
+    return await safeAPICall('main/GetProduct?article=' + (id ? id : '7409903') + '&name=' + name);
 }
 
 export async function SearchProducts(query, p, tid, pid) {

@@ -9,8 +9,8 @@ interface IProps {
 export default class Partners extends React.Component<IProps, any>{
     constructor(props: IProps) {
         super(props);
-        window.history.pushState("", "Ufo Store - партнёры", '/partners');
-        document.title = "Ufo Store - партнёры";
+        window.history.pushState("", "Partner Shop - партнёры", '/partners');
+        document.title = "Partner Shop - партнёры";
         this.state = {
             partners: []
         };
