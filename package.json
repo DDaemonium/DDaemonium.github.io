@@ -2,7 +2,7 @@
   "name": "vkfl",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://DDaemonium.github.io/vkuiufostore",
+  "homepage": "https://DDaemonium.github.io/",
   "dependencies": {
     "@vkontakte/icons": "1.82.0",
     "@vkontakte/vk-bridge-mock": "2.1.0",
