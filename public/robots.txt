@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /*
+
+sitemap: https://partnersshop.netlify.app/sitemaps/sitemap.xml
