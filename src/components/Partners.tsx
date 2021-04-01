@@ -1,4 +1,4 @@
-﻿import { Card, CardGrid, InfoRow, SimpleCell } from "@vkontakte/vkui";
+﻿import { Card, CardGrid, Group, InfoRow, SimpleCell, Spinner } from "@vkontakte/vkui";
 import * as React from 'react';
 import { GetPartners } from "../store/API";
 
@@ -6,7 +6,7 @@ interface IProps {
     isDesktop: boolean,
 }
 
-export default class Partners extends React.Component<IProps, any>{
+export default class Partners extends React.Component<IProps, any> {
     constructor(props: IProps) {
         super(props);
         window.history.pushState("", "Partner Shop - партнёры", '/partners');
@@ -35,11 +35,18 @@ export default class Partners extends React.Component<IProps, any>{
 
     render() {
         return (
+            <Group>
+                {(!this.state.partners || this.state.partners.length <= 0) &&
+                    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                        <Spinner size="large" style={{ margin: '20px 0' }} />
+                    </div>
+                }
             <CardGrid size={this.props.isDesktop ? 's' : 'l'} >
                 {
                     this.state.partners
                 }
-            </CardGrid>
+                </CardGrid>
+            </Group>
         );
     }
 }

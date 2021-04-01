@@ -33,6 +33,9 @@ export function GetCurrentPage(){
     if (pathname.indexOf('preview') == 1) {
         return 'productView';
     }
+    if (pathname.indexOf('about') == 1) {
+        return 'profile';
+    }
     return 'products';
 }
 

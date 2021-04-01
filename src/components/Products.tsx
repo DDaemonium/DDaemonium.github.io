@@ -1,5 +1,5 @@
 ﻿import { Icon16Search, Icon16ShoppingCartOutline, Icon24Filter } from '@vkontakte/icons';
-import { Button, Card, CardGrid, Div, Group, Header, Headline, Search, Text } from '@vkontakte/vkui';
+import { Button, Card, CardGrid, Div, Group, Header, Headline, Search, Spinner, Text } from '@vkontakte/vkui';
 import * as React from 'react';
 import { SearchProducts } from '../store/API';
 
@@ -148,12 +148,15 @@ export default class Products extends React.Component<IProps, any> {
                // onIconClick={console.log}
             />
                 <Header mode="primary">Товаров найдено: {this.state.productsFound}</Header>
+                {(!this.state.products || this.state.products.length <= 0) &&
+                    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                        <Spinner size="large" style={{ margin: '20px 0' }} />
+                    </div>
+                }
                 <CardGrid size={this.props.isDesktop ? 's' : 'l'}>
-
                     {
                         this.state.products
                     }
-
                 </CardGrid>
                 <Div style={{
                     margin: 0,

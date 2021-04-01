@@ -1,14 +1,15 @@
 ﻿import '@vkontakte/vkui/dist/vkui.css';
 
 import * as React from 'react';
-import { Text, AppRoot, ConfigProvider, AdaptivityProvider, withAdaptivity, usePlatform, SplitLayout, SplitCol, Epic, Panel, Placeholder, View, Group, PanelHeaderBack, PanelHeader, Tabbar, TabbarItem, VKCOM, ViewWidth, Cell, CardGrid, Card, Div, Button, Headline, Header, SimpleCell, InfoRow } from '@vkontakte/vkui';
-import { Icon16Search, Icon28ShoppingCartOutline, Icon28ClipOutline, Icon28NewsfeedOutline, Icon28ServicesOutline, Icon28UserCircleOutline } from '@vkontakte/icons';
+import { AppRoot, ConfigProvider, AdaptivityProvider, withAdaptivity, usePlatform, SplitLayout, SplitCol, Epic, Panel, Placeholder, View, Group, PanelHeader, Tabbar, TabbarItem, VKCOM, ViewWidth, Cell } from '@vkontakte/vkui';
+import { Icon28ShoppingCartOutline, Icon28InfoCircleOutline, Icon28ServicesOutline, Icon28UserCircleOutline } from '@vkontakte/icons';
 import ReactDOM from 'react-dom';
 import { GetCurrentPage } from './store/API';
 import Partners from './components/Partners';
 import Categories from './components/Categories';
 import Products from './components/Products';
 import ProductPreview from './components/ProductPreview';
+import About from './components/About';
 
 const Example = withAdaptivity(({ viewWidth }) => {
     const platform = usePlatform();
@@ -38,7 +39,7 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                 } : {}}
                                 data-story="partners"
                                 onClick={onStoryChange}
-                                before={<Icon28NewsfeedOutline />}
+                                before={<Icon28UserCircleOutline />}
                             >
                                 Партнёры
                             </Cell>
@@ -67,18 +68,6 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                 Товары
                             </Cell>
                             <Cell
-                                disabled={activeStory === 'clips'}
-                                style={activeStory === 'clips' ? {
-                                    backgroundColor: "var(--button_secondary_background)",
-                                    borderRadius: 8
-                                } : {}}
-                                data-story="clips"
-                                onClick={onStoryChange}
-                                before={<Icon28ClipOutline />}
-                            >
-                                Акции
-                            </Cell>
-                            <Cell
                                 disabled={activeStory === 'profile'}
                                 style={activeStory === 'profile' ? {
                                     backgroundColor: "var(--button_secondary_background)",
@@ -86,7 +75,7 @@ const Example = withAdaptivity(({ viewWidth }) => {
                                 } : {}}
                                 data-story="profile"
                                 onClick={onStoryChange}
-                                before={<Icon28UserCircleOutline />}
+                                before={<Icon28InfoCircleOutline />}
                             >
                                 О нас
                             </Cell>
@@ -108,7 +97,7 @@ const Example = withAdaptivity(({ viewWidth }) => {
                             selected={activeStory === 'partners'}
                             data-story="partners"
                             text="Партнёры"
-                        ><Icon28NewsfeedOutline /></TabbarItem>
+                        ><Icon28UserCircleOutline /></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
                             selected={activeStory === 'categories'}
@@ -119,29 +108,20 @@ const Example = withAdaptivity(({ viewWidth }) => {
                             onClick={onStoryChange}
                             selected={activeStory === 'products'}
                             data-story="products"
-                            label="12"
                             text="Товары"
                         ><Icon28ShoppingCartOutline /></TabbarItem>
                         <TabbarItem
                             onClick={onStoryChange}
-                            selected={activeStory === 'clips'}
-                            data-story="clips"
-                            text="Клипы"
-                        ><Icon28ClipOutline /></TabbarItem>
-                        <TabbarItem
-                            onClick={onStoryChange}
                             selected={activeStory === 'profile'}
                             data-story="profile"
-                            text="Профиль"
-                        ><Icon28UserCircleOutline /></TabbarItem>
+                            text="О нас"
+                        ><Icon28InfoCircleOutline /></TabbarItem>
                     </Tabbar>
                 }>
                     <View id="partners" activePanel="partners">
                         <Panel id="partners">
                             <PanelHeader>Партнёры</PanelHeader>
-                            <Group style={{ height: '1200px' }}>
-                                <Partners isDesktop={isDesktop} />
-                            </Group>
+                            <Partners isDesktop={isDesktop} />
                         </Panel>
                     </View>
                     <View id="categories" activePanel="categories">
@@ -156,22 +136,10 @@ const Example = withAdaptivity(({ viewWidth }) => {
                             <Products isDesktop={isDesktop} openProductView={openProductView} />
                         </Panel>
                     </View>
-                    <View id="clips" activePanel="clips">
-                        <Panel id="clips">
-                            <PanelHeader left={<PanelHeaderBack />}>Клипы</PanelHeader>
-                            <Group style={{ height: '1000px' }}>
-                                <Placeholder icon={<Icon28ClipOutline width={56} height={56} />}>
-                                </Placeholder>
-                            </Group>
-                        </Panel>
-                    </View>
                     <View id="profile" activePanel="profile">
                         <Panel id="profile">
-                            <PanelHeader left={<PanelHeaderBack />}>Клипы</PanelHeader>
-                            <Group style={{ height: '1000px' }}>
-                                <Placeholder icon={<Icon28ClipOutline width={56} height={56} />}>
-                                </Placeholder>
-                            </Group>
+                            <PanelHeader>О нас</PanelHeader>
+                            <About />
                         </Panel>
                     </View>
                     <View id="productView" activePanel="productView">
