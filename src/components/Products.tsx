@@ -77,8 +77,8 @@ export default class Products extends React.Component<IProps, any> {
         document.querySelector('meta[name="description"]')?.setAttribute("content", document.title + " Partner Shop - огромный выбор товаров, приятные цены и выгодный cashback!");
         SearchProducts(q, p, tid, pid )
             .then(products => this.setState({
-                productsFound: products["foundCount"],
-                products: products["products"].map((item, index) => (
+                productsFound: !products ? 0 : products["foundCount"],
+                products: !products ? null : products["products"]?.map((item, index) => (
                     <Card key={index} mode="shadow">
                         <div style={{
                             padding: 1,

@@ -50,25 +50,25 @@ export default class ProductPreview extends React.Component<IProps, any>{
         GetProduct(productId, productName)
             .then(x => {
                 window.scrollTo(0, 0);
-                document.title = "Купить: " + x.name;
-                window.history.pushState("", document.title, "/preview/" + x.article + "/" + (x.name ? x.name.replaceAll(' / ', ' ') : ''));
-                document.querySelector("link[rel='canonical']")?.setAttribute("href", window.location.protocol + "//" + window.location.host + "/preview/" + x.article + "/" + (x.name ? x.name.replaceAll(' / ', ' ') : ''));
-                document.querySelector('meta[name="description"]')?.setAttribute("content", x.description ? x.description : "Магазин не указал описания товара. Перейдите на сайт магазина, нажав на кнопку (Купить), для просмотра описания.");
+                document.title = "Купить: " + x?.name;
+                window.history.pushState("", document.title, "/preview/" + x?.article + "/" + (x?.name ? x?.name.replaceAll(' / ', ' ') : ''));
+                document.querySelector("link[rel='canonical']")?.setAttribute("href", window.location.protocol + "//" + window.location.host + "/preview/" + x?.article + "/" + (x?.name ? x?.name.replaceAll(' / ', ' ') : ''));
+                document.querySelector('meta[name="description"]')?.setAttribute("content", x?.description ? x?.description : "Магазин не указал описания товара. Перейдите на сайт магазина, нажав на кнопку (Купить), для просмотра описания.");
                 this.setState({
-                    name: x.name,
-                    article: x.article,
-                    imgUrl: x.imgUrl,
-                    description: x.description ? x.description : "Магазин не указал описания товара. Перейдите на сайт магазина, нажав на кнопку (Купить), для просмотра описания.",
-                    vendor: x.vendor,
-                    partnerName: x.partnerName,
-                    referalLink: x.referalLink,
-                    price: x.price,
-                    charge: x.charge,
-                    isAvailable: x.isAvailable,
-                    categoryName: x.categoryName,
-                    model: x.model
+                    name: x?.name,
+                    article: x?.article,
+                    imgUrl: x?.imgUrl,
+                    description: x?.description ? x?.description : "Магазин не указал описания товара. Перейдите на сайт магазина, нажав на кнопку (Купить), для просмотра описания.",
+                    vendor: x?.vendor,
+                    partnerName: x?.partnerName,
+                    referalLink: x?.referalLink,
+                    price: x?.price,
+                    charge: x?.charge,
+                    isAvailable: x?.isAvailable,
+                    categoryName: x?.categoryName,
+                    model: x?.model
                 });
-                this.search(x.name.replaceAll(' / ', ' '), 0, x.categoryId, x.partnerId);
+                this.search(x?.name.replaceAll(' / ', ' '), 0, x?.categoryId, x?.partnerId);
             });
     }
 
@@ -90,9 +90,9 @@ export default class ProductPreview extends React.Component<IProps, any>{
     }
 
     search(q, p, tid, pid) {
-        SearchProducts(q, p, tid, pid)
+        SearchProducts(q, p, tid, pid, 21)
             .then(products => this.setState({
-                products: products["products"].slice(0, 21).map((item, index) => (
+                products: !products ? null : products["products"]?.map((item, index) => (
                     <Card key={index} mode="shadow">
                         <div style={{
                             padding: 1,
