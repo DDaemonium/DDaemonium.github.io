@@ -74,7 +74,7 @@ export default class Products extends React.Component<IProps, any> {
         document.title = 'Результаты поиска Купить: ' + ( q ? q : '');
         window.history.pushState("", document.title, '/products/' + (q ? q.replaceAll('/', ' ') : '') + '?p=' + p + '&tid=' + (tid ? tid : '') + '&pid=' + (pid ? pid : ''));
         document.querySelector("link[rel='canonical']")?.setAttribute("href", window.location.protocol + "//" + window.location.host + '/products/' + (q ? q.replaceAll('/', ' ') : '') + '?p=' + p + '&tid=' + (tid ? tid : '') + '&pid=' + (pid ? pid : ''));
-        document.querySelector('meta[name="description"]')?.setAttribute("content", document.title + ". Partner Shop - огромный выбор товаров, приятные цены и выгодный cashback!");
+        document.querySelector('meta[name="description"]')?.setAttribute("content", document.title + " Partner Shop - огромный выбор товаров, приятные цены и выгодный cashback!");
         SearchProducts(q, p, tid, pid )
             .then(products => this.setState({
                 productsFound: products["foundCount"],
