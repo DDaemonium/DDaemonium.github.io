@@ -90,7 +90,7 @@ export default class ProductPreview extends React.Component<IProps, any>{
     }
 
     search(q, p, tid, pid) {
-        SearchProducts(q, p, tid, pid, 21)
+        SearchProducts(q, p, tid, pid, 9)
             .then(products => this.setState({
                 products: !products ? null : products["products"]?.map((item, index) => (
                     <Card key={index} mode="shadow">
