@@ -10,7 +10,9 @@ export default class Partners extends React.Component<IProps, any> {
     constructor(props: IProps) {
         super(props);
         window.history.pushState("", "Partner Shop - партнёры", '/partners');
+        document.querySelector("link[rel='canonical']")?.setAttribute("href", window.location.protocol + "//" + window.location.host + "/partners");
         document.title = "Partner Shop - партнёры";
+        document.querySelector('meta[name="description"]')?.setAttribute("content", "Partner Shop - огромный выбор товаров, приятные цены и выгодный cashback! Мы работаем только с прооверенными партнёрами.");
         this.state = {
             partners: []
         };

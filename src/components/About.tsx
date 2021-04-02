@@ -5,7 +5,9 @@ export default class About extends React.Component<any, any>{
     constructor(props: any) {
         super(props);
         window.history.pushState("", "Partner Shop - партнёры", '/about');
+        document.querySelector("link[rel='canonical']")?.setAttribute("href", window.location.protocol + "//" + window.location.host + "/about");
         document.title = "Partner Shop - контактная информация";
+        document.querySelector('meta[name="description"]')?.setAttribute("content", "Partner Shop - крупный партнёрский магазин. У нас свыше 100 000 000 товаров в базе, ОГРОМНОЕ количество патнёров и категорий, выгодный кешбек и возмоность получить КОСМИЧЕСКИЕ скидки. Мы уверены, что Вы найдёте то, что Вам нужно больше всего у нас :). Наша цель - сделать удобный поисковик товаров, без лишнего. Максимум удобства и комфорта - залог успеха!");
     }
 
     render() {

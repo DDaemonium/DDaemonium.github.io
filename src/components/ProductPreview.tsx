@@ -52,6 +52,8 @@ export default class ProductPreview extends React.Component<IProps, any>{
                 window.scrollTo(0, 0);
                 document.title = "Купить: " + x.name;
                 window.history.pushState("", document.title, "/preview/" + x.article + "/" + (x.name ? x.name.replaceAll(' / ', ' ') : ''));
+                document.querySelector("link[rel='canonical']")?.setAttribute("href", window.location.protocol + "//" + window.location.host + "/preview/" + x.article + "/" + (x.name ? x.name.replaceAll(' / ', ' ') : ''));
+                document.querySelector('meta[name="description"]')?.setAttribute("content", x.description ? x.description : "Магазин не указал описания товара. Перейдите на сайт магазина, нажав на кнопку (Купить), для просмотра описания.");
                 this.setState({
                     name: x.name,
                     article: x.article,

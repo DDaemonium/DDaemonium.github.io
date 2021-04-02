@@ -29,6 +29,7 @@ export default class Categories extends React.Component<IProps, any>{
         GetCategories(currentId).then((x: any[]) => {
             if (x.length == 0) return;
             window.history.pushState("", document.title, "/categories/" + (currentId && currentId != "null" ? currentId : ''));
+            document.querySelector("link[rel='canonical']")?.setAttribute("href", window.location.protocol + "//" + window.location.host + "/categories/" + (currentId && currentId != "null" ? currentId : ''));
             let parentId = x[0].parentId;
             if (parentId && parentId != "null") {
                 GetParentCategory(parentId).then((z: any[]) => this.setState({ parentId: z[0].parentId }));
